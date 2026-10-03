@@ -1,31 +1,23 @@
 import 'package:flutter/material.dart';
+import 'screens/task_list_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TaskTrackerApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TaskTrackerApp extends StatelessWidget {
+  const TaskTrackerApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      title: 'Project & SLA Task Tracker',
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Task App')),
-      body: const Center(
-        child: Text('Shared entry point. Add your navigation buttons here.'),
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: const Color(0xFF3B5BFE),
       ),
+      home: const TaskListScreen(),
     );
   }
 }
