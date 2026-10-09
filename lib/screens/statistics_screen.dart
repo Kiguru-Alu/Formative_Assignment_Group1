@@ -136,7 +136,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
+                color: color.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
               ),
               child: Icon(icon, color: color, size: 22),
@@ -233,7 +233,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                             end: Alignment.bottomCenter,
                             colors: [
                               status.color,
-                              status.color.withOpacity(0.7),
+                              status.color.withValues(alpha: 0.7),
                             ],
                           ),
                         ),
@@ -341,7 +341,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   ],
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),
@@ -438,7 +438,7 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                   ],
                 ),
               );
-            }).toList(),
+            }),
           ],
         ),
       ),

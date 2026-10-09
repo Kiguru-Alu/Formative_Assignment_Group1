@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../models/task_model.dart' as sla_task;
 import '../models/task_enums.dart';
-import '../models/task_model.dart';
 import '../models/team_member.dart';
 import '../services/local_storage_service.dart';
 import '../services/sla_calculator.dart';
@@ -25,7 +25,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   TeamMember? _activeUser;
   List<TeamMember> _allMembers = [];
-  List<Task> _userTasks = [];
+  List<sla_task.Task> _userTasks = [];
   bool _isLoading = true;
 
   final List<String> _avatarColors = [
@@ -294,7 +294,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               await widget.storageService
                                   .updateTeamMember(updatedMember);
                               if (mounted) {
-                                Navigator.pop(ctx);
+                                if (ctx.mounted) {
+                                  Navigator.pop(ctx);
+                                }
                                 _loadProfileData();
                                 if (widget.onProfileUpdated != null) {
                                   widget.onProfileUpdated!();
@@ -473,7 +475,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         vertical: 6,
                       ),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF4F46E5).withOpacity(0.12),
+                        color: const Color(0xFF4F46E5).withValues(alpha: 0.12),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Row(
@@ -651,7 +653,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           height: 44,
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
+            color: color.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(

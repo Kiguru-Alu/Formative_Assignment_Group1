@@ -347,8 +347,11 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                                     .updateTeamMember(member);
                               }
 
-                              if (mounted) {
+                              if (ctx.mounted) {
                                 Navigator.pop(ctx);
+                              }
+
+                              if (mounted) {
                                 _loadData();
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -429,7 +432,7 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                       fillColor: Theme.of(context)
                           .colorScheme
                           .surfaceContainerHighest
-                          .withOpacity(0.5),
+                          .withValues(alpha: 0.5),
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 12,
@@ -579,7 +582,7 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                                                     decoration: BoxDecoration(
                                                       color: const Color(
                                                               0xFF4F46E5)
-                                                          .withOpacity(0.12),
+                                                          .withValues(alpha: 0.12),
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
@@ -633,7 +636,7 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                                                         '$warningTasksCount Warning',
                                                     backgroundColor:
                                                         const Color(0xFFEF4444)
-                                                            .withOpacity(0.15),
+                                                            .withValues(alpha: 0.15),
                                                     textColor:
                                                         const Color(0xFFEF4444),
                                                     icon: Icons
