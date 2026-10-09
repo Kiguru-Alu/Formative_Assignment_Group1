@@ -21,6 +21,19 @@ class _AppShellState extends State<AppShell> {
   final List<int> _versions = [0, 0, 0, 0];
 
   @override
+  void initState() {
+    super.initState();
+    _syncAssignees();
+  }
+
+  Future<void> _syncAssignees() async {
+    final changed = await syncAssigneeOptions(widget.storageService);
+    if (changed && mounted) {
+      setState(() => _versions[1]++);
+    }
+  }
+
+  @override
   void dispose() {
     _homeRefresh.dispose();
     super.dispose();
@@ -32,6 +45,7 @@ class _AppShellState extends State<AppShell> {
       if (index == 2 || index == 3) _versions[index]++;
     });
     if (index == 0) _homeRefresh.value++;
+    _syncAssignees();
   }
 
   void _dataChangedOnHome() {
@@ -42,7 +56,10 @@ class _AppShellState extends State<AppShell> {
     });
   }
 
-  void _userChanged() => _homeRefresh.value++;
+  void _userChanged() {
+    _homeRefresh.value++;
+    _syncAssignees();
+  }
 
   @override
   Widget build(BuildContext context) {
