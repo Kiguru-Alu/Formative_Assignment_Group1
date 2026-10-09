@@ -56,73 +56,63 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           'SLA Analytics & Metrics',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            tooltip: 'Refresh Metrics',
-            onPressed: _loadData,
-          ),
-        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              onRefresh: _loadData,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // --- 1. SLA OVERVIEW METRICS CARDS ---
-                    Row(
-                      children: [
-                        Expanded(
-                          child: _buildMetricCard(
-                            title: 'Total Tasks',
-                            value: '${_tasks.length}',
-                            icon: Icons.task_outlined,
-                            color: const Color(0xFF4F46E5), // Indigo
-                          ),
+          : SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // --- 1. SLA OVERVIEW METRICS CARDS ---
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildMetricCard(
+                          title: 'Total Tasks',
+                          value: '${_tasks.length}',
+                          icon: Icons.task_outlined,
+                          color: const Color(0xFF4F46E5), // Indigo
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _buildMetricCard(
-                            title: 'SLA Compliance',
-                            value: '${complianceRate.toStringAsFixed(1)}%',
-                            icon: Icons.verified_outlined,
-                            color: complianceRate >= 80.0
-                                ? const Color(0xFF10B981)
-                                : const Color(0xFFF59E0B),
-                          ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _buildMetricCard(
+                          title: 'SLA Compliance',
+                          value: '${complianceRate.toStringAsFixed(1)}%',
+                          icon: Icons.verified_outlined,
+                          color: complianceRate >= 80.0
+                              ? const Color(0xFF10B981)
+                              : const Color(0xFFF59E0B),
                         ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: _buildMetricCard(
-                            title: 'Overdue',
-                            value: '$overdueCount',
-                            icon: Icons.error_outline,
-                            color: const Color(0xFFEF4444),
-                          ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _buildMetricCard(
+                          title: 'Overdue',
+                          value: '$overdueCount',
+                          icon: Icons.error_outline,
+                          color: const Color(0xFFEF4444),
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
 
-                    // --- 2. TASK STATUS VERTICAL BAR CHART ---
-                    _buildBarChartCard(summaryCounts),
-                    const SizedBox(height: 20),
+                  // --- 2. TASK STATUS VERTICAL BAR CHART ---
+                  _buildBarChartCard(summaryCounts),
+                  const SizedBox(height: 20),
 
-                    // --- 3. PRIORITY & WORKLOAD BREAKDOWN ---
-                    _buildPriorityBreakdownCard(),
-                    const SizedBox(height: 20),
-                    _buildWorkloadBreakdownCard(),
-                    const SizedBox(height: 20),
+                  // --- 3. PRIORITY & WORKLOAD BREAKDOWN ---
+                  _buildPriorityBreakdownCard(),
+                  const SizedBox(height: 20),
+                  _buildWorkloadBreakdownCard(),
+                  const SizedBox(height: 20),
 
-                    // --- 4. SLA RULE REFERENCE CARD ---
-                    _buildSlaRulesReferenceCard(),
-                    const SizedBox(height: 24),
-                  ],
-                ),
+                  // --- 4. SLA RULE REFERENCE CARD ---
+                  _buildSlaRulesReferenceCard(),
+                  const SizedBox(height: 24),
+                ],
               ),
             ),
     );

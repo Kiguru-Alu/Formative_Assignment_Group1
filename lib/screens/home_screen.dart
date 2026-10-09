@@ -215,58 +215,54 @@ class _HomeScreenState extends State<HomeScreen> {
         .take(3)
         .toList();
 
-    return RefreshIndicator(
-      onRefresh: _load,
-      child: ListView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
-        children: [
-          HealthPanel(counts: counts, complianceRate: compliance, onTileTap: widget.onOpenTasks),
-          if (_tasks.isEmpty)
-            _EmptyState(onCreate: _createTask)
-          else ...[
-            _SectionHeader(
-              title: 'Needs attention',
-              badge: attentionAll.length,
-              onSeeAll: widget.onOpenTasks,
-            ),
-            if (attention.isEmpty)
-              const _AllClear()
-            else
-              for (final t in attention)
-                UrgencyTaskCard(
-                  task: t,
-                  assignee: _membersById[t.assignedMemberId],
-                  onTap: () => _openTask(t),
-                  onComplete: () => _complete(t),
-                ),
-            const _SectionHeader(title: 'Upcoming deadlines'),
-            if (upcoming.isEmpty)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: Text('No other upcoming deadlines.',
-                    style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
-              )
-            else
-              for (final t in upcoming)
-                _DeadlineRow(
-                  task: t,
-                  assignee: _membersById[t.assignedMemberId],
-                  onTap: () => _openTask(t),
-                ),
-            const SizedBox(height: 8),
-            Card(
-              child: ListTile(
-                leading: Icon(Icons.insights_outlined, color: Theme.of(context).colorScheme.primary),
-                title: const Text('Project insights', style: TextStyle(fontWeight: FontWeight.w700)),
-                subtitle: const Text('Workload, priorities and more'),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: _openInsights,
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 96),
+      children: [
+        HealthPanel(counts: counts, complianceRate: compliance, onTileTap: widget.onOpenTasks),
+        if (_tasks.isEmpty)
+          _EmptyState(onCreate: _createTask)
+        else ...[
+          _SectionHeader(
+            title: 'Needs attention',
+            badge: attentionAll.length,
+            onSeeAll: widget.onOpenTasks,
+          ),
+          if (attention.isEmpty)
+            const _AllClear()
+          else
+            for (final t in attention)
+              UrgencyTaskCard(
+                task: t,
+                assignee: _membersById[t.assignedMemberId],
+                onTap: () => _openTask(t),
+                onComplete: () => _complete(t),
               ),
+          const _SectionHeader(title: 'Upcoming deadlines'),
+          if (upcoming.isEmpty)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text('No other upcoming deadlines.',
+                  style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+            )
+          else
+            for (final t in upcoming)
+              _DeadlineRow(
+                task: t,
+                assignee: _membersById[t.assignedMemberId],
+                onTap: () => _openTask(t),
+              ),
+          const SizedBox(height: 8),
+          Card(
+            child: ListTile(
+              leading: Icon(Icons.insights_outlined, color: Theme.of(context).colorScheme.primary),
+              title: const Text('Project insights', style: TextStyle(fontWeight: FontWeight.w700)),
+              subtitle: const Text('Workload, priorities and more'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: _openInsights,
             ),
-          ],
+          ),
         ],
-      ),
+      ],
     );
   }
 }

@@ -88,20 +88,17 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 Expanded(
                   child: filtered.isEmpty
                       ? _buildEmptyState()
-                      : RefreshIndicator(
-                          onRefresh: _loadTasks,
-                          child: ListView.builder(
-                            padding: const EdgeInsets.only(top: 8, bottom: 80),
-                            itemCount: filtered.length,
-                            itemBuilder: (context, index) {
-                              final task = filtered[index];
-                              return TaskCard(
-                                task: task,
-                                assignee: _membersById[task.assignedMemberId],
-                                onTap: () => _openTaskDetails(task),
-                              );
-                            },
-                          ),
+                      : ListView.builder(
+                          padding: const EdgeInsets.only(top: 8, bottom: 80),
+                          itemCount: filtered.length,
+                          itemBuilder: (context, index) {
+                            final task = filtered[index];
+                            return TaskCard(
+                              task: task,
+                              assignee: _membersById[task.assignedMemberId],
+                              onTap: () => _openTaskDetails(task),
+                            );
+                          },
                         ),
                 ),
               ],
