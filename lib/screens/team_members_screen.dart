@@ -713,13 +713,6 @@ class _TeamMembersScreenState extends State<TeamMembersScreen> {
                 ],
               ),
             ),
-      floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: const Color(0xFF4F46E5),
-        foregroundColor: Colors.white,
-        onPressed: () => _showMemberFormModal(),
-        icon: const Icon(Icons.add),
-        label: const Text('Add Member'),
-      ),
     );
   }
 

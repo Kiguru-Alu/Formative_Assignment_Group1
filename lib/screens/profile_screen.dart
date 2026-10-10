@@ -408,13 +408,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           'User Profile',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.switch_account_outlined),
-            tooltip: 'Switch Active User',
-            onPressed: _showUserSwitcherDialog,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
