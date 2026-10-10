@@ -6,7 +6,7 @@ import '../models/team_member.dart';
 import '../services/sla_calculator.dart';
 import '../utils/due_labels.dart';
 import 'member_avatar.dart';
-import 'priority_pill.dart';
+import 'priority_label.dart';
 import 'sla_status_badge.dart';
 
 class UrgencyTaskCard extends StatelessWidget {
@@ -80,7 +80,7 @@ class UrgencyTaskCard extends StatelessWidget {
                               const SizedBox(width: 4),
                               Text('${dueLabel(task)} \u00B7 ${shortDate(task.dueDate)}', style: meta),
                             ]),
-                            PriorityPill(priority: task.priority),
+                            PriorityLabel(priority: task.priority),
                           ],
                         ),
                         if (sla != SlaStatus.completed) ...[
