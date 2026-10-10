@@ -57,14 +57,19 @@ class _TaskListScreenState extends State<TaskListScreen> {
       final matchesPriority = _priorityFilter == null || task.priority == _priorityFilter;
       return matchesSearch && matchesSla && matchesPriority;
     }).toList()
-      ..sort((a, b) => a.dueDate.compareTo(b.dueDate));
+      ..sort((a, b) {
+        final aDone = a.status == TaskStatus.completed;
+        final bDone = b.status == TaskStatus.completed;
+        if (aDone != bDone) return aDone ? 1 : -1;
+        return a.dueDate.compareTo(b.dueDate);
+      });
   }
 
   Future<void> _openTaskDetails(Task task) async {
-    final result = await Navigator.of(context).push<bool>(
+    await Navigator.of(context).push<bool>(
       MaterialPageRoute(builder: (_) => TaskDetailsScreen(taskId: task.id)),
     );
-    if (result == true) _loadTasks();
+    if (mounted) _loadTasks();
   }
 
   Future<void> _openCreateTask() async {
@@ -103,10 +108,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 ),
               ],
             ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton(
         onPressed: _openCreateTask,
-        icon: const Icon(Icons.add),
-        label: const Text('New Task'),
+        tooltip: 'Create task',
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -181,7 +186,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
             Text(
               hasActiveFilters
                   ? 'No tasks match your search or filters.'
-                  : 'No tasks yet. Tap "New Task" to create one.',
+                  : 'No tasks yet. Tap + to create one.',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey.shade600),
             ),
