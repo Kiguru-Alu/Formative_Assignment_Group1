@@ -1,31 +1,41 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'app/theme.dart';
+import 'screens/sign_in_screen.dart';
+import 'services/local_storage_service.dart';
+import 'services/sample_data_bridge.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final storageService = LocalStorageService();
+  await storageService.initAndSeedIfNeeded();
+  await loadLeilaSampleData(storageService);
+
+  await appThemeController.load();
+
+  runApp(ProjectSlaApp(storageService: storageService));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ProjectSlaApp extends StatelessWidget {
+  final LocalStorageService storageService;
+
+  const ProjectSlaApp({super.key, required this.storageService});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Task App')),
-      body: const Center(
-        child: Text('Shared entry point. Add your navigation buttons here.'),
-      ),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: appThemeController,
+      builder: (context, mode, _) {
+        return MaterialApp(
+          title: 'Project & SLA Task Tracker',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light(),
+          darkTheme: AppTheme.dark(),
+          themeMode: mode,
+          home: SignInScreen(storageService: storageService),
+        );
+      },
     );
   }
 }
