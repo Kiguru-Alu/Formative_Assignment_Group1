@@ -122,6 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
         content: Text('Marked "${task.title}" complete'),
+        persist: false,
+        duration: const Duration(seconds: 4),
         action: SnackBarAction(
           label: 'Undo',
           onPressed: () async {
