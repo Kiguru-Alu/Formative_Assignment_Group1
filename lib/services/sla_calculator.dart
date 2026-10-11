@@ -4,21 +4,17 @@ import '../models/task_model.dart';
 /// Calculation engine for computing SLA statuses, warning windows, compliance rates,
 /// and detailed SLA explanations across the application.
 class SlaCalculator {
-  /// Priority warning threshold hours as per SLA guidelines.
+ 
   static const double highPriorityWarningHours = 72.0;
   static const double mediumPriorityWarningHours = 48.0;
   static const double lowPriorityWarningHours = 24.0;
 
-  /// Evaluates and returns the precise [SlaStatus] of a given [Task].
-  ///
-  /// Rules applied in order:
-  /// 1. Completed tasks -> [SlaStatus.completed]
-  /// 2. Current time past due date -> [SlaStatus.overdue]
-  /// 3. Remaining time within priority early-warning threshold -> [SlaStatus.atRisk]
-  ///    - High priority: <= 72 hours
-  ///    - Medium priority: <= 48 hours
-  ///    - Low priority: <= 24 hours
-  /// 4. Otherwise -> [SlaStatus.onTrack]
+  ///  [SlaStatus] of a given [Task].
+  
+  /// [SlaStatus.completed]
+  ///  [SlaStatus.overdue]
+  ///  [SlaStatus.atRisk]
+ /// [SlaStatus.onTrack]
   static SlaStatus calculateSlaStatus(Task task, {DateTime? now}) {
     final currentTime = now ?? DateTime.now();
 
@@ -58,7 +54,7 @@ class SlaCalculator {
     return SlaStatus.onTrack;
   }
 
-  /// Returns a human-readable diagnosis string describing the SLA state of a task.
+
   static String getSlaExplanation(Task task, {DateTime? now}) {
     final currentTime = now ?? DateTime.now();
     final status = calculateSlaStatus(task, now: currentTime);
@@ -97,7 +93,7 @@ class SlaCalculator {
   }
 
   /// Calculates SLA status summary counts for a list of tasks.
-  /// Used by Member 1's Dashboard and Member 3's Statistics screen.
+
   static Map<SlaStatus, int> getSlaSummaryCounts(List<Task> tasks, {DateTime? now}) {
     final Map<SlaStatus, int> counts = {
       SlaStatus.onTrack: 0,
@@ -115,7 +111,7 @@ class SlaCalculator {
   }
 
   /// Computes the SLA Compliance Rate percentage across a list of tasks.
-  /// Compliance Rate = % of tasks that are NOT overdue.
+
   static double getSlaComplianceRate(List<Task> tasks, {DateTime? now}) {
     if (tasks.isEmpty) return 100.0;
 
