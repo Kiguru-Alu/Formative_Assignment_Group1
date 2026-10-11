@@ -5,6 +5,8 @@ import '../models/task_enums.dart';
 import '../models/team_member.dart';
 import '../services/task_storage_service.dart';
 import '../services/sample_team_members.dart';
+import '../utils/sla_calculator.dart';
+import '../widgets/sla_chip.dart';
 import 'task_form_screen.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
@@ -117,6 +119,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   }
 
   Widget _buildDetails(Task task) {
+    final slaStatus = SlaCalculator.calculate(task);
     final dateFormat = intl.DateFormat('EEEE, MMM d, yyyy');
 
     return SingleChildScrollView(
@@ -130,6 +133,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               Expanded(
                 child: Text(task.title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               ),
+              SlaChip(status: slaStatus),
             ],
           ),
           const SizedBox(height: 4),
