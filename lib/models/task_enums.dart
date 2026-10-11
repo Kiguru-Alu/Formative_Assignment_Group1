@@ -6,7 +6,7 @@ enum TaskPriority {
   medium,
   high;
 
-  /// Human-readable label for UI display.
+  
   String get label {
     switch (this) {
       case TaskPriority.low:
@@ -22,11 +22,11 @@ enum TaskPriority {
   Color get color {
     switch (this) {
       case TaskPriority.low:
-        return const Color(0xFF64748B); // Slate
+        return const Color(0xFF64748B); 
       case TaskPriority.medium:
-        return const Color(0xFFF59E0B); // Amber
+        return const Color(0xFFF59E0B); 
       case TaskPriority.high:
-        return const Color(0xFFEF4444); // Rose
+        return const Color(0xFFEF4444); 
     }
   }
 
@@ -48,7 +48,7 @@ enum TaskStatus {
   inProgress,
   completed;
 
-  /// Human-readable display label.
+  
   String get label {
     switch (this) {
       case TaskStatus.toDo:
@@ -64,11 +64,11 @@ enum TaskStatus {
   Color get color {
     switch (this) {
       case TaskStatus.toDo:
-        return const Color(0xFF64748B); // Slate
+        return const Color(0xFF64748B); 
       case TaskStatus.inProgress:
-        return const Color(0xFF4F46E5); // Indigo
+        return const Color(0xFF4F46E5); 
       case TaskStatus.completed:
-        return const Color(0xFF10B981); // Emerald
+        return const Color(0xFF10B981);
     }
   }
 
@@ -91,7 +91,6 @@ enum SlaStatus {
   overdue,
   completed;
 
-  /// Human-readable label for dashboard and reports.
   String get label {
     switch (this) {
       case SlaStatus.onTrack:
